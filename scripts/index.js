@@ -90,7 +90,7 @@ app.post('/register', async (req, res) => {
             await contract.database.once("UserAdded" , async() => {
                 res.json({success: true, address: wallet.address, key: wallet.privateKey, message: "new account created"});
                 console.log("Total number of users: " + await contract.database.usercount());
-                console.log("New user account created: \n" + await contract.database.getUser(wallet.address));
+                console.log("New user account created with address (" + wallet.address + "): \n" + await contract.database.getUser(wallet.address));
             });
         }
         else {
@@ -113,7 +113,7 @@ app.post('/upload', async (req, res) => {
                 await contract.database.once("FileAdded" , async() => {
                     res.json({success: true, address: wallet.address, message: "new file created"});
                     console.log("Total number of Files: " + await contract.database.filecount());
-                    console.log("New file created: \n" + await contract.database.getFile(wallet.address));
+                    console.log("New file created with address (" + wallet.address + "): \n" + await contract.database.getFile(wallet.address));
                 });
             } else {
                 res.json({error: true, message: "Unable to create file. Try again."});
